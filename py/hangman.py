@@ -65,7 +65,7 @@ def gameloop():
     correct = "_" * len(word)
 
     while tries != 0:
-        render(word, missed=incorrect,correct=correct)
+        render(missed=incorrect,correct=correct)
         guesser()
         rt = checker()
         tries -= 1
@@ -74,7 +74,7 @@ def gameloop():
     con(rt)
 
 
-def render(word: str, missed, correct):
+def render(missed, correct):
     global hangmen
 
     display = correct
