@@ -1,3 +1,5 @@
+# Hangman
+
 import random
 
 h1 = """  +---+
