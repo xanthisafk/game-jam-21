@@ -1,9 +1,11 @@
 # Tic tac toe
-import random, time
+import random
+import time
 
-board = [' ',' ',' ',' ',' ',' ',' ',' ',' ']
+board = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
 turn = ''
 player = ''
+
 
 def render():
     """
@@ -18,27 +20,30 @@ def render():
 
     print(s)
 
+
 def player_letter():
     """
     Player picks their letter. Also decides who goes first.
     """
     letter = ''
 
-    while letter not in ['x','X','o','O']:
+    while letter not in ['x', 'X', 'o', 'O']:
         letter = input('Chose "X" or "O": ')
-    
-    if random.randint(1,2) == 1:
+
+    if random.randint(1, 2) == 1:
         first = 'p'
     else:
         first = 'c'
 
-    if letter in ['x','X']:
-        return ['X','O',first]
+    if letter in ['x', 'X']:
+        return ['X', 'O', first]
     else:
-        return ['O','X',first]
+        return ['O', 'X', first]
 
-def free_or_not(board,move):
+
+def free_or_not(board, move):
     return board[move] == ' '
+
 
 def player_move():
     """
@@ -47,20 +52,22 @@ def player_move():
     global board
     move = ' '
 
-    while move not in [0,1,2,3,4,5,6,7,8] or not free_or_not(board,move):
+    while move not in [0, 1, 2, 3, 4, 5, 6, 7, 8] or not free_or_not(board, move):
         move = (int(input("Your turn (1-9): "))-1)
-        if move in [0,1,2,3,4,5,6,7,8,9] and free_or_not(board,move):
+        if move in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] and free_or_not(board, move):
             break
 
     return move
+
 
 def com_move():
     global board
 
     while True:
-        move = random.randint(0,8)
-        if board[move] not in ['X','O']:
+        move = random.randint(0, 8)
+        if board[move] not in ['X', 'O']:
             return move
+
 
 def check_full():
     global board
@@ -69,24 +76,28 @@ def check_full():
             return False
     return True
 
+
 def won(board, letter):
     win = (
-        (board[0] == letter and board[1] == letter and board[2] == letter) or # 123
-        (board[3] == letter and board[4] == letter and board[5] == letter) or # 456
-        (board[6] == letter and board[7] == letter and board[8] == letter) or # 789
-        (board[0] == letter and board[2] == letter and board[5] == letter) or # 147
-        (board[1] == letter and board[4] == letter and board[7] == letter) or # 258
-        (board[2] == letter and board[5] == letter and board[8] == letter) or # 369
-        (board[0] == letter and board[4] == letter and board[8] == letter) or # 159
-        (board[2] == letter and board[4] == letter and board[6] == letter)    # 357
+        (board[0] == letter and board[1] == letter and board[2] == letter) or  # 123
+        (board[3] == letter and board[4] == letter and board[5] == letter) or  # 456
+        (board[6] == letter and board[7] == letter and board[8] == letter) or  # 789
+        (board[0] == letter and board[2] == letter and board[5] == letter) or  # 147
+        (board[1] == letter and board[4] == letter and board[7] == letter) or  # 258
+        (board[2] == letter and board[5] == letter and board[8] == letter) or  # 369
+        (board[0] == letter and board[4] == letter and board[8] == letter) or  # 159
+        (board[2] == letter and board[4] ==
+         letter and board[6] == letter)    # 357
     )
 
     return win
+
 
 def update_board(place):
     global turn
     global board
     board[place] = turn
+
 
 def switch_player():
     global turn
@@ -94,6 +105,7 @@ def switch_player():
         turn = 'O'
     else:
         turn = 'X'
+
 
 def gameloop():
     global board
@@ -103,7 +115,7 @@ def gameloop():
     print("Welcome to tic-tac-toe!")
     who = player_letter()
     render()
-    
+
     print("Coin flips...")
     time.sleep(3)
 
@@ -135,7 +147,7 @@ def gameloop():
             else:
                 print("Computer's Move: ")
                 place = com_move()
-        
+
         update_board(place)
         switch_player()
         render()
@@ -146,25 +158,26 @@ def gameloop():
             else:
                 print("You lose. Computer wins.")
                 break
-        
+
         if check_full():
             print("Game tied!")
             break
 
+
 def reset():
     global board, turn, player
-    board = [' ',' ',' ',' ',' ',' ',' ',' ',' ',]
+    board = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ]
     turn = ''
     player = ''
+
 
 if __name__ == '__main__':
     gameloop()
     while True:
         q = input("Do you want to play again? (y/n): ")
         q = q.lower()
-        if q not in ['y','yes']:
+        if q not in ['y', 'yes']:
             break
         else:
             reset()
             gameloop()
-
